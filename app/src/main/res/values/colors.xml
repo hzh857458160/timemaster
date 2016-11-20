@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="wechatColor">#edecec</color>
+    <color name="itemClickColor">#d1cfcf</color>
+    <color name="colorBackground">#fff</color>
+    <color name="colorButton">#37deee</color>
+    <color name="backgroundColor">#72A5DC</color>
+    <color name="colorToolItem">#10000000</color>
+    <color name="loginlight">#C5CAE9</color>
+
+</resources>

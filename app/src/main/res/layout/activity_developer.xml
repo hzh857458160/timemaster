@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        >
+
+        <TextView
+            android:id="@+id/tv_developinfo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="开发者信息"
+            android:textSize="18sp"
+            android:textColor="@color/colorBackground"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="465dp"
+        >
+
+        <ImageView
+            android:id="@+id/login_logo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_menu_send"/>
+
+
+        <TextView
+            android:id="@+id/tv_developer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="开发者    :   6-3-601C"
+            android:textColor="@color/colorBackground"
+            android:textSize="14sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_email"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="made for 大创"
+            android:textColor="@color/colorBackground"
+            android:textSize="14sp"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="联系方式:   hzh00112@163.com"
+            android:textColor="@color/colorBackground"
+            android:textSize="14sp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/login_logo"
+            android:layout_marginTop="59dp" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

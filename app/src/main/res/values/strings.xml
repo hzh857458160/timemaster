@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">TimeMaster</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="step1">第一步：\n点击按钮打开【有权查看使用情况的应用】</string>
+    <string name="step2">第二步：\n找到该应用【TimeMaster】勾选并点击确定</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

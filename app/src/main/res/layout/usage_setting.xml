@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/backgroundColor"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="?attr/homeAsUpIndicator" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="安卓5.0特殊设置"
+        android:textSize="18sp"
+        android:textColor="@color/colorBackground"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearlayout"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image_usageset"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/tv_step2"
+                android:src="@drawable/usagesetting"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+
+
+            <TextView
+                android:id="@+id/tv_usageset"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:text="注意：在进行以下设置前\n请先确认本机安卓版本是否为5.0及以上"
+                android:textColor="@color/colorBackground"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+
+                />
+
+
+
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_step1"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/linearlayout"
+            android:layout_alignParentStart="true"
+            android:text="@string/step1"
+            android:textColor="@color/colorBackground"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <Button
+            android:id="@+id/btn_guide"
+            android:layout_width="185dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/image_step2"
+            android:layout_centerHorizontal="true"
+            android:text="前往设置"
+            android:textColor="@color/colorBackground"
+            android:background="@drawable/btn_small_shape"
+            android:layout_marginTop="20dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_step2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="@string/step2"
+            android:textColor="@color/colorBackground"
+            android:textSize="16sp"
+            android:layout_below="@+id/image_step1"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <ImageView
+            android:id="@+id/image_step2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:src="@drawable/usage_setting_step2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/tv_step2"
+            android:layout_alignParentEnd="true" />
+
+        <ImageView
+            android:id="@+id/image_step1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:src="@drawable/usage_setting_step1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/tv_step1"
+            android:layout_alignParentStart="true" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

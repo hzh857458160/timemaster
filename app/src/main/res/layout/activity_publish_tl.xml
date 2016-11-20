@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/backgroundColor"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:navigationIcon="?attr/homeAsUpIndicator">
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center"
+            android:background="@color/backgroundColor"
+            android:clickable="true"
+            android:id="@+id/publish"
+            >
+
+            <TextView
+                android:id="@+id/publish_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="15dp"
+                android:text="发送"
+                android:textColor="@color/wechatColor"
+
+                android:textSize="18sp"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+    
+    <EditText
+        android:id="@+id/edit_feedBackText"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:hint="  有什么好的建议或者是意见可以告诉我们"
+        android:textColorHint="#88000000"
+        android:lines="8"
+        android:gravity="top"
+        android:background="@color/wechatColor"
+        android:textSize="16sp"
+        android:layout_below="@+id/toolbar" />
+    
+        <TextView
+            android:id="@+id/tv_cellphone"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="方便留下您的联系方式："
+            android:layout_below="@+id/edit_feedBackText"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+        />
+
+        <EditText
+            android:id="@+id/edit_cellphone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/tv_cellphone"
+            android:background="@color/wechatColor"
+            android:hint="QQ/Email/手机"
+            android:textSize="16sp"/>
+
+</RelativeLayout>
