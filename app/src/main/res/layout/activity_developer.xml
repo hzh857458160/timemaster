@@ -36,13 +36,14 @@
 
         <ImageView
             android:id="@+id/login_logo"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="35dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_menu_send"/>
+            android:src="@drawable/timemaster_icon"/>
+
 
 
         <TextView
@@ -50,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="开发者    :   6-3-601C"
+            android:text="开  发  者:   Han、Yu、Lin"
             android:textColor="@color/colorBackground"
             android:textSize="14sp"
             android:layout_centerVertical="true"
@@ -64,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="made for 大创"
+            android:text="Made for 大创"
             android:textColor="@color/colorBackground"
             android:textSize="14sp"
             android:layout_marginLeft="10dp"

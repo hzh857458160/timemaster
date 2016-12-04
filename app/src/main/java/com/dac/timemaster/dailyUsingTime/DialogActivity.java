@@ -68,7 +68,7 @@ public class DialogActivity extends Activity {
     }
 
 
-    private void ScreenOff(Context context){
+    /*private void ScreenOff(Context context){
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "TAG");
         wakeLock.acquire();
@@ -76,7 +76,7 @@ public class DialogActivity extends Activity {
         // 释放锁，屏幕熄灭。
         wakeLock.release();
 
-    }
+    }*/
     protected void onStop() {
         super.onStop();
         finish();

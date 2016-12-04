@@ -18,6 +18,7 @@
             android:id="@+id/appInfo"
             android:icon="@drawable/ic_menu_share"
             android:title="关于" />
+
     </group>
 
     <!--<item android:title="Communicate">

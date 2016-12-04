@@ -1,26 +1,20 @@
 package com.dac.timemaster.leaveForLearning;
 
-import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.app.Service;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.SystemClock;
 //import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.dac.timemaster.data.BlackListBean;
-import com.dac.timemaster.data.DatabaseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,8 +64,6 @@ public class WatchDogService extends Service {
     }
 
     public int onStartCommand(Intent intent, int flags, int startId) {
-        //ContentValues valuesdg = new ContentValues();
-       // Cursor cursordg = DatabaseUtil.query(WatchDogService.this, "blacklist", null, null, null, null, null, null);
         WatchDogIsOpen = true;
 
         packages = getPackageManager().getInstalledPackages(0);
@@ -84,38 +76,10 @@ public class WatchDogService extends Service {
             if (!filterApp(appInfo) && null != packName) {//系统应用为1，非系统应用为0
                 lockedPackNames.add(packName);
                 Log.v("WatchDogActivity", "packageInfo.packageName == " + packName);
-                //while (cursordg.moveToNext()) {
-                    //for (int j = 0; j < cursordg.getCount(); j++) {
-                        //cursordg.move(j);
-                        //String name = cursordg.getString(cursordg.getColumnIndex(BlackListBean.PACKAGENAME));
-                        //if (name.equals(packName)) {
-                           // continue;
-                       // } else {
-                          //  valuesdg.put(BlackListBean.PACKAGENAME, packName);
-                          //  DatabaseUtil.insert(WatchDogService.this, "blacklist", null, valuesdg);
-                       // }
-                   // }
-                //} else {
-                    //aluesdg.put(BlackListBean.PACKAGENAME, packName);
-                   // DatabaseUtil.insert(WatchDogService.this, "blacklist", null, valuesdg);
-                //}
 
             }
         }
 
-       /*for (int k = 0; k < lockedPackNames.size(); k++) {
-            String dname = lockedPackNames.get(k);
-            for (int j = 0; j < cursordg.getCount(); j++) {
-                cursordg.move(j);
-                String name2 = cursordg.getString(cursordg.getColumnIndex(BlackListBean.PACKAGENAME));
-                if (dname.equals(name2)) {
-                    continue;
-                } else {
-                    DatabaseUtil.delete(WatchDogService.this, "blacklist", "packagename=?", new String[]{name2});
-                }
-            }
-
-        }*/
 
 
         am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
@@ -128,7 +92,6 @@ public class WatchDogService extends Service {
 
                 @Override
                 public void onTick(long millisUntilFinished) {
-                   //Toast.makeText(getApplicationContext(), "time = " + time, Toast.LENGTH_SHORT).show();
                     time--;
 
                 }
@@ -155,6 +118,10 @@ public class WatchDogService extends Service {
                         if (lockedPackNames.contains(packname)) {
                             if (packname.equals("com.dac.timemaster")) {
                                 //当这个包名为白名单里的应用，则没有事情发生
+                                StopActivity.IsStopActivityOpen = false;
+
+
+
                             } else {
                                 // 当不是白名单，跳转至stopActivity
                                 // 该intent为从该服务跳到暂停界面

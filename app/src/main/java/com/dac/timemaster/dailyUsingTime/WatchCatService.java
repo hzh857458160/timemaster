@@ -17,8 +17,8 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.dac.timemaster.data.ClockBean;
-import com.dac.timemaster.data.DatabaseUtil;
+import com.dac.timemaster.data.CountTime;
+import com.dac.timemaster.data.CountTimeDB;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,15 +37,15 @@ public class WatchCatService extends Service{
     private String currentPkgName = null;  //当前运行的包名
     private String pkgName = null;
     private final String TAG = "WatchCatService";
-    private String nowDate = null;
     private Calendar cd;
     private int dayOfWeek;
     private long nowTime;
     private long lastTime;
-    private int appTime = 0;
-    private int clearTime=0;
+    private int CountTime = 0;
+    private CountTime countTime;
+    private CountTimeDB db;
     private BroadcastReceiver receiver;
-
+    private StringBuffer sb = new StringBuffer();
     private List<String> lockedPackNames= new ArrayList<>();
     private List<PackageInfo> packages;
     boolean flag = false;   //记录pkgName是否为系统应用，否为true
@@ -95,8 +95,8 @@ public class WatchCatService extends Service{
         Log.i(TAG,"注册广播");
 
 
-        final ContentValues valuesct=new ContentValues();
-        final Cursor cursorct= DatabaseUtil.query(WatchCatService.this,"clock",null,null,null,null,null,null);
+        db = CountTimeDB.getInstance(WatchCatService.this);
+        countTime = new CountTime();
 
         packages = getPackageManager().getInstalledPackages(0);
         //获取所有安装的应用，并获得他们的包名
@@ -121,6 +121,7 @@ public class WatchCatService extends Service{
 
         }
 
+        Log.d(TAG,setDateFomemat());
         lastTime = System.currentTimeMillis();
         //开始线程，统计应用使用时间
         new Thread(){
@@ -144,41 +145,16 @@ public class WatchCatService extends Service{
 
                             if(flag){
                                 nowTime = System.currentTimeMillis();
-                                nowDate = getNowDate();
-                                appTime = getSecondTime(lastTime,nowTime);
-                                //在这里将timeCount的值存入包名为currentPkgName的应用的数据库，appTime为使用应用的秒数
-                                //同时，将nowDate的值一起存入当前日期
-                                if(cursorct!=null&&cursorct.moveToFirst()){
-                                    for(int j=0;j<cursorct.getCount();j++){
-                                        cursorct.move(j);
-                                        String name=cursorct.getString(cursorct.getColumnIndex(ClockBean.TABLE_NAME));
-                                        String date=cursorct.getString(cursorct.getColumnIndex(ClockBean.DATE));
-                                        if(name.equals(currentPkgName)){
-                                            if(date.equals(nowDate)){
-                                                valuesct.put(ClockBean.TIME,appTime);
-                                                DatabaseUtil.update(WatchCatService.this,"clock",valuesct,"packagename=?",new String[]{pkgName});
-                                            }else{
-                                                valuesct.put(ClockBean.TIME,clearTime);
-                                                valuesct.put(ClockBean.DATE,nowDate);
-                                                DatabaseUtil.update(WatchCatService.this,"clock",valuesct,"packagename=?",new String[]{pkgName});
-                                            }
-                                        }else{
-                                            valuesct.put(ClockBean.PACKAGENAME,currentPkgName);
-                                            valuesct.put(ClockBean.TIME,appTime);
-                                            valuesct.put(ClockBean.DATE,nowDate);
-                                            DatabaseUtil.insert(WatchCatService.this,"clock",ClockBean.ID,valuesct);
-                                        }
-                                    }
-                                }else{
-                                    valuesct.put(ClockBean.PACKAGENAME,currentPkgName);
-                                    valuesct.put(ClockBean.TIME,appTime);
-                                    valuesct.put(ClockBean.DATE,nowDate);
-                                    DatabaseUtil.insert(WatchCatService.this,"clock",ClockBean.ID,valuesct);
-                                }
-
+                                CountTime = getSecondTime(lastTime,nowTime);
                                 //*****************************************************************************
-                                Log.d(TAG,"pkg:"+currentPkgName);
-                                Log.d(TAG,"time:"+getSecondTime(lastTime,nowTime));
+                                countTime.setPkgname(currentPkgName);
+                                countTime.setTotaltime(CountTime);
+                                countTime.setNowdate(setDateFomemat());
+                                db.saveCountTime(countTime);
+
+                                sb.append(currentPkgName+" "+setTimeFormat(CountTime)+" "+countTime.getNowdate()+"\n");
+                                Log.d(TAG,sb.toString());
+
 
                             }
 
@@ -200,11 +176,20 @@ public class WatchCatService extends Service{
         return super.onStartCommand(intent, flags, startId);
     }
 
+
+    public String setTimeFormat(int time){
+        int hour = (time/60)/60;
+        int min = (time/60)%60;
+        int sec = time - hour *3600 - min *60 ;
+        String str_format= (hour < 10 ? "0" : "") + hour + ":" + (min < 10 ? "0" : "") + min +":" + (sec < 10 ? "0" : "") + sec;
+        return str_format;
+    }
+
     //服务死掉时需要先把数据保存进数据库
     @Override
     public void onDestroy() {
         super.onDestroy();
-        appTime = getSecondTime(lastTime,nowTime);
+
         //在这里将timeCount的值存入包名为currentPkgName的应用的数据库，appTime为使用应用的秒数
         //同时，将nowDate的值一起存入当前日期
 
@@ -255,11 +240,11 @@ public class WatchCatService extends Service{
      */
 
     //得到当前日期，格式 yyyy-mm-dd
-    public String getNowDate() {
+    public String setDateFomemat() {
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");// 可以方便地修改日期格式
-        String hehe = dateFormat.format(now);
-        return hehe;
+        String nowDate = dateFormat.format(now);
+        return nowDate;
     }
 
     public int getSecondTime(long last,long now){

@@ -3,7 +3,6 @@ package com.dac.timemaster.leaveForLearning;
 
 
 import android.annotation.TargetApi;
-import android.app.AlertDialog;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.content.Intent;
@@ -26,9 +25,9 @@ import android.widget.Toast;
 
 import com.dac.timemaster.R;
 import com.dac.timemaster.aboutApp.AboutActivity;
+import com.dac.timemaster.dailyUsingTime.PieChartDailyActivity;
 import com.dac.timemaster.dailyUsingTime.ScreenOnService;
 import com.dac.timemaster.dailyUsingTime.WatchCatService;
-import com.dac.timemaster.dailyUsingTime.dailyChart;
 import com.dac.timemaster.data.DatabaseHelper;
 import com.dac.timemaster.setting.SettingActivity;
 
@@ -46,15 +45,14 @@ public class LeavePhoneActivity extends AppCompatActivity implements OnClickList
     private long mCurrentTime;
     private Intent watchCatService;
     private Intent screenOnService;
-    private DatabaseHelper dbHelper;
-    private SQLiteDatabase dbWriter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper=new DatabaseHelper(LeavePhoneActivity.this);
-        dbWriter=dbHelper.getWritableDatabase();
+        DatabaseHelper dbHelper=new DatabaseHelper(LeavePhoneActivity.this);
+        SQLiteDatabase dbWriter=dbHelper.getWritableDatabase();
         buttonStart = (Button) findViewById(R.id.btn_start);
         musicProgressBar= (MusicProgressBar) findViewById(R.id.musicProgressBar);
         musicProgressBar.setMax(6 * 60);
@@ -195,7 +193,17 @@ public class LeavePhoneActivity extends AppCompatActivity implements OnClickList
            /* selectIntent=new Intent(, LeavePhoneActivity.class);
             startActivity(selectIntent);*/
         } else if (id == R.id.dailyUsingTime) {
-            startActivity(new Intent(LeavePhoneActivity.this,dailyChart.class));
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP){
+                if(getIsSetUsage()){
+                    startActivity(new Intent(LeavePhoneActivity.this,PieChartDailyActivity.class));
+                }else{
+                    Toast.makeText(this, "请您先到设置中完成特殊设置", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                startActivity(new Intent(LeavePhoneActivity.this,PieChartDailyActivity.class));
+            }
+
+
         } else if (id == R.id.setting) {
             Intent selectIntent = new Intent(LeavePhoneActivity.this, SettingActivity.class);
             startActivity(selectIntent);
@@ -243,11 +251,16 @@ public class LeavePhoneActivity extends AppCompatActivity implements OnClickList
      * 把开启服务包装为一个方法
      */
     public void startService(){
-        watchDogIntent = new Intent(this, WatchDogService.class);
-        watchDogIntent.putExtra("Time",time);
-        startService(watchDogIntent);
-        Toast.makeText(getApplicationContext(), "Start Service Success!", Toast.LENGTH_SHORT).show();
-        JumpToHome();
+        if (!WatchDogService.WatchDogIsOpen){
+            watchDogIntent = new Intent(this, WatchDogService.class);
+            watchDogIntent.putExtra("Time",time);
+            startService(watchDogIntent);
+            Toast.makeText(getApplicationContext(), "开启成功！", Toast.LENGTH_SHORT).show();
+            JumpToHome();
+        }else {
+            Toast.makeText(getApplicationContext(), "你已经开启了应用锁功能，请结束后再试........", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**

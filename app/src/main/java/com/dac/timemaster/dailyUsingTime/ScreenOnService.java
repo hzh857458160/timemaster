@@ -46,7 +46,7 @@ public class ScreenOnService extends Service {
         }.start();
         AlarmManager manager = (AlarmManager)getSystemService(ALARM_SERVICE);
         int anHour = 60 * 60 * 1000;
-        long triggerAtTime = SystemClock.elapsedRealtime() +  anHour/60;  //临界点设置为15min后，发送广播请求
+        long triggerAtTime = SystemClock.elapsedRealtime() +  anHour/4;  //临界点设置为15min后，发送广播请求
         Intent i = new Intent(this,AlarmReceiver.class);
         PendingIntent pi = PendingIntent.getBroadcast(this,0,i,0);
         manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,triggerAtTime,pi);

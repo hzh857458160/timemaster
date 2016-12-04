@@ -5,12 +5,18 @@
 
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <!-- 屏幕唤醒 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 屏幕熄灭 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!--
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    -->
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
@@ -64,7 +70,8 @@
         <activity android:name=".dailyUsingTime.DialogActivity"
             android:theme="@android:style/Theme.Translucent"/>
 
-        <activity android:name=".dailyUsingTime.dailyChart"/>
+        <activity android:name=".dailyUsingTime.PieChartDailyActivity">
+            </activity>
 
     </application>
 

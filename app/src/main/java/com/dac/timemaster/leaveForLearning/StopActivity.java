@@ -15,18 +15,22 @@ import com.dac.timemaster.R;
 
 
 public class StopActivity extends Activity{
+
+    public static boolean IsStopActivityOpen = true;
     private TextView tv_appname;
     private TextView tv_tips;
     private TextView tv_last;
     private TextView tv_time;
 
-    //private ImageView  image_chouju;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop);
+
+
         tv_appname= (TextView) findViewById(R.id.tv_appname);
         Intent intent = getIntent();
         String appName = intent.getStringExtra("AppName");
